@@ -10,71 +10,40 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.io.FileInputStream;
+
 public class GameView extends View {
-    public int getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    private int posX=400;
-    private int posY=400;
+    Fish fish;
     private Bitmap bitmap;
-    private int bitmap_height;
-    private int bitmap_width;
+    private Bitmap bitmapNG;
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
-
+    Paint paint=new Paint();
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint=new Paint();
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.fish);
-        bitmap_width=bitmap.getWidth();
-        bitmap_height=bitmap.getHeight();
-//        canvas.drawLine(400,0,0,600,paint);
-        canvas.drawBitmap(bitmap,posX,posY,paint);
+        if(fish==null){
+            fish=new Fish(this);
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.fish);
+            bitmapNG=BitmapFactory.decodeResource(getResources(),R.drawable.fish_cake);
+        }
+        if(fish.getDirection()==Fish.DIRECTION_NG)
+            bitmap=bitmapNG;
+        canvas.drawBitmap(bitmap,fish.getX(),fish.getY(),paint);
     }
 
     void moveUp(){
-        if(posY>0){
-            posY-=50;
-        }else{
-            posY=getHeight()-bitmap_height;
-        }
-
+        fish.setDirection(Fish.DIRECTION_UP);
     }
     void moveDown(){
-        if(posY<getHeight()-bitmap_height){
-            posY+=50;
-        }else{
-            posY=0;
-        }
+        fish.setDirection(Fish.DIRECTION_DOWN);
     }
     void moveLeft(){
-        if(posX>0) {
-            posX -= 50;
-        }else {
-            posX = getWidth()-bitmap_width;
-        }
+        fish.setDirection(Fish.DIRECTION_LEFT);
     }
     void moveRight(){
-        if(posX<getWidth()-bitmap_width) {
-            posX += 50;
-        }else {
-            posX = 0;
-        }
+        fish.setDirection(Fish.DIRECTION_RIGHT);
     }
 
 }

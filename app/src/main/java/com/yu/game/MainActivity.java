@@ -16,38 +16,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
-
     }
 
     private void findViews() {
-        findViewById(R.id.arrow_down).setOnClickListener(this);
-        findViewById(R.id.arrow_left).setOnClickListener(this);
-        findViewById(R.id.arrow_right).setOnClickListener(this);
-        findViewById(R.id.arrow_up).setOnClickListener(this);
-        gameView = findViewById(R.id.game);
-    }
+    findViewById(R.id.arrow_down).setOnClickListener(this);
+    findViewById(R.id.arrow_left).setOnClickListener(this);
+    findViewById(R.id.arrow_right).setOnClickListener(this);
+    findViewById(R.id.arrow_up).setOnClickListener(this);
+    gameView = findViewById(R.id.game);
+}
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.arrow_up:
                 gameView.moveUp();
-                gameView.invalidate();
                 Log.d(TAG, "onClick: up");
                 break;
             case R.id.arrow_down:
                 gameView.moveDown();
-                gameView.invalidate();
                 Log.d(TAG, "onClick: down");
                 break;
             case R.id.arrow_left:
                 gameView.moveLeft();
-                gameView.invalidate();
                 Log.d(TAG, "onClick: left");
                 break;
             case R.id.arrow_right:
                 gameView.moveRight();
-                gameView.invalidate();
                 Log.d(TAG, "onClick: rigth");
                 break;
         }
